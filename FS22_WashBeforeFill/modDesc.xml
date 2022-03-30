@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<modDesc descVersion="64">
+  <author>LS-Farmers</author>
+  <version>0.0.0.1</version>
+  <title>
+    <en>Wash Before Fill</en>
+    <de>Wash Before Fill</de>
+  </title>
+  <description>
+    <en>
+    <![CDATA[ ]]></en>
+    <de>
+    <![CDATA[ ]]></de>
+  </description>
+  <multiplayer supported="true"/>
+  <iconFilename>modIcon.dds</iconFilename>
+  <extraSourceFiles>
+    <sourceFile filename="register.lua"/>
+  </extraSourceFiles>
+</modDesc>
