@@ -28,6 +28,10 @@ function washBeforeFill:onLoad(savegame)
     self.handleDischarge = Utils.appendedFunction(self.handleDischarge, washBeforeFill.shovelHandleDischarge)
   end
 
+  if self.setWorkMode ~= nil then
+    self.setWorkMode = Utils.appendedFunction(self.setWorkMode, washBeforeFill.setWorkMode)
+  end
+
   self.lastDirtAmount = 0
 end
 
@@ -36,6 +40,11 @@ end
 
 function washBeforeFill:shovelHandleDischarge(myObject)
     print("append shovelHandleDischarge")
+end
+
+function washBeforeFill:setWorkMode(myObject)
+    print("append setWorkMode")
+    print(" WorkMode: " .. self:getIsTurnedOn())
 end
 
 function washBeforeFill:appendStopTipping(myObject)
