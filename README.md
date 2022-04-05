@@ -1,6 +1,8 @@
 # FS22_WashBeforeFill
 
 ## Status
+Ich arbeite gerade daran wuch diesen Mod zur Verfügung zu stellen.
+Aktuell gibt es noch kein Release. Es gibt nur eine Entwicklerversion.
 
 ## Entwickler Version
 Bitte beachtet, dass ihr hier eine Entwickler-Version benutzt.
