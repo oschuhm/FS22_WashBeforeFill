@@ -22,12 +22,12 @@ Wenn ihr einen Fehler meldet, dann brauche ich von euch folgende Infos:
 Hier findet ihr die aktuell umgesetzten Funktionen. Weitere Funktionen sind in Arbeit.
 
 ### Anhänger / Trailer
-- Beim Abkippen wird der Fülltyp gespeichert
-- Wenn ihr einen anderen Fülltyp laden wollt, dann muß der Anhänger vorher gewaschen werden
+- Beim Abkippen wird der FillType gespeichert
+- Wenn ihr einen anderen FillType laden wollt, dann muß der Anhänger vorher gewaschen werden
 
 ### Schaufel
-- Beim Abkippen wird der Fülltyp gespeichert
-- Wenn ihr einen anderen Fülltyp laden wollt, dann muß die Schaufel vorher gewaschen werden
+- Beim Abkippen wird der FillType gespeichert
+- Wenn ihr einen anderen FillType laden wollt, dann muß die Schaufel vorher gewaschen werden
 
 ### Mähdrescher
 - Beim Überladen wird die Fruchtart gespeichert
