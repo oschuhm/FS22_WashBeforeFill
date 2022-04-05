@@ -19,5 +19,19 @@ Wenn ihr einen Fehler meldet, dann brauche ich von euch folgende Infos:
 [Hier](https://github.com/oschuhm/FS22_WashBeforeFill/issues) findet ihr alle gemeldeten Fehler
 
 ## Funktionen
+Hier findet ihr die aktuell umgesetzten Funktionen. Weitere Funktionen sind in Arbeit.
+
+### Anhänger / Trailer
+- Beim Abkippen wird der Fülltyp gespeichert
+- Wenn ihr einen anderen Fülltyp laden wollt, dann muß der Anhänger vorher gewaschen werden
+
+### Schaufel
+- Beim Abkippen wird der Fülltyp gespeichert
+- Wenn ihr einen anderen Fülltyp laden wollt, dann muß die Schaufel vorher gewaschen werden
+
+### Mähdrescher
+- Beim Überladen wird die Fruchtart gespeichert
+- Wenn ihr eine andere Fruchtart ernten wollt, dann müsst ihr den Mähdrescher vorher reinigen
+- (geplant) Reinigung des Dreschers direkt auf dem Feld mit Druckluft
 
 ## Credits
