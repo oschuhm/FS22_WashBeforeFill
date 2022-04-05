@@ -13,7 +13,6 @@ function washBeforeFill.prerequisitesPresent(specializations)
 end
 
 function washBeforeFill.registerEventListeners(vehicleType)
-  SpecializationUtil.registerEventListener(vehicleType, "onUpdate", washBeforeFill)
   SpecializationUtil.registerEventListener(vehicleType, "onLoadFinished", washBeforeFill)
 end
 
@@ -46,9 +45,6 @@ function washBeforeFill:onLoadFinished(savegame)
     end
   end
 
-end
-
-function washBeforeFill:onUpdate(dt)
 end
 
 function washBeforeFill:handleDischargeOnEmpty(myObject)
