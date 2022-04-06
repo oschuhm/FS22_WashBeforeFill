@@ -14,6 +14,10 @@ end
 
 function washBeforeFill.registerEventListeners(vehicleType)
   SpecializationUtil.registerEventListener(vehicleType, "onLoadFinished", washBeforeFill)
+  if SpecializationUtil.hasSpecialization(Sprayer, vehicleType.specializations) then
+    print("listen to Sprayer:onTurnOff Event")
+    SpecializationUtil.registerEventListener(vehicleType, "onTurnedOff", washBeforeFill)
+  end
 end
 
 function washBeforeFill.registerFunctions(vehicleType)
@@ -22,10 +26,6 @@ end
 
 function washBeforeFill:onLoadFinished(savegame)
   self.setNodeDirtAmount = Utils.appendedFunction(self.setNodeDirtAmount, washBeforeFill.appendToWash)
-
-  if self.stopTipping ~= nil then
-    --self.stopTipping = Utils.appendedFunction(self.stopTipping, washBeforeFill.appendStopTipping)
-  end
 
   if self.handleDischargeOnEmpty ~= nil then
     self.handleDischargeOnEmpty = Utils.appendedFunction(self.handleDischargeOnEmpty, washBeforeFill.handleDischargeOnEmpty)
@@ -37,6 +37,11 @@ function washBeforeFill:onLoadFinished(savegame)
 
   if self.getCanDischargeToGround ~= nil then
     self.getCanDischargeToGround = Utils.overwrittenFunction(self.getCanDischargeToGround, washBeforeFill.getCanDischargeToGround)
+  end
+
+  if self.spec_sprayer ~= nil and self.getCanBeTurnedOn ~= nil then
+    print("overwrite function getCanBeTurnedOn")
+    self.getCanBeTurnedOn = Utils.overwrittenFunction(self.getCanBeTurnedOn, washBeforeFill.getCanBeTurnedOn)
   end
 
   if self.spec_fillUnit ~= nil then
@@ -56,6 +61,22 @@ end
 function washBeforeFill:appendStopTipping(myObject)
     print("appendStopTipping")
     self:addLittleBit()
+end
+
+function washBeforeFill:onTurnedOff()
+    print("washBeforeFill:onTurnedOff")
+    self:addLittleBit()
+end
+
+function washBeforeFill:getCanBeTurnedOn(superFunc)
+    local spec = self.spec_sprayer
+    local myFillLevel = self:getFillUnitFillLevel(self:getSprayerFillUnitIndex())
+    if myFillLevel <= 1 and spec.needsToBeFilledToTurnOn and not self:getIsAIActive() then
+      return false
+    end
+
+    return superFunc(self)
+
 end
 
 function washBeforeFill:getCanDischargeToObject(superFunc,dischargeNode)

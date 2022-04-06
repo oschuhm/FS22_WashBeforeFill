@@ -34,4 +34,10 @@ Hier findet ihr die aktuell umgesetzten Funktionen. Weitere Funktionen sind in A
 - Wenn ihr eine andere Fruchtart ernten wollt, dann müsst ihr den Mähdrescher vorher reinigen
 - (geplant) Reinigung des Dreschers direkt auf dem Feld mit Druckluft
 
+### Sprayer
+(Miststreuer, Düngerstreuer, Kalksteuer, etc.)
+- Der aktuelle FillType wird gespeichert
+- Wenn ihr einen anderen FillType laden wollt, dann muß das Gerät vorher gewaschen werden
+
+
 ## Credits
