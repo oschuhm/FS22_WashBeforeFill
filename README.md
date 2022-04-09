@@ -32,7 +32,7 @@ Hier findet ihr die aktuell umgesetzten Funktionen. Weitere Funktionen sind in A
 ### Mähdrescher
 - Beim Überladen wird die Fruchtart gespeichert
 - Wenn ihr eine andere Fruchtart ernten wollt, dann müsst ihr den Mähdrescher vorher reinigen
-- (geplant) Reinigung des Dreschers direkt auf dem Feld mit Druckluft
+- Reinigung des Dreschers direkt auf dem Feld mit Druckluft -> siehe Druckluftreiniger
 
 ### Sprayer
 (Miststreuer, Düngerstreuer, Kalksteuer, etc.)
