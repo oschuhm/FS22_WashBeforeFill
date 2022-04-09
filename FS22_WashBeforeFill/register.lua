@@ -16,4 +16,9 @@ for vehicleTypeName, vehicleType in pairs(g_vehicleTypeManager.types) do
 	else
 		--print ("  skipped washBeforeFill for " .. vehicleTypeName)
     end
+
 end
+
+Player.equipHandtool = Utils.overwrittenFunction(Player.equipHandtool, washBeforeFill.equipHandtool)
+HandTool.onActivate = Utils.overwrittenFunction(HandTool.onActivate, washBeforeFill.onActivate)
+HighPressureWasherLance.setIsWashing = Utils.overwrittenFunction(HighPressureWasherLance.setIsWashing, washBeforeFill.setIsWashing)

@@ -154,3 +154,53 @@ function washBeforeFill.appendToWash(nodeData, dirtAmount, force)
      end
 
 end
+
+function washBeforeFill:equipHandtool(superFunc, handtoolFilename, force, noEventSend, equippedCallbackFunction, equippedCallbackTarget)
+
+    print("Overwrite equipHandTool")
+
+    return superFunc(self, handtoolFilename, force, noEventSend, equippedCallbackFunction, equippedCallbackTarget)
+
+end
+
+function washBeforeFill:onActivate(superFunc, allowInput)
+
+    print("Overwrite HandTool:onActivate")
+
+    return superFunc(self, allowInput)
+
+end
+
+function washBeforeFill:setIsWashing(superFunc, doWashing, force, noEventSend)
+
+    --print("Overwrite HighPressureWasherLance.setIsWashing")
+    --print("doWashing -> " .. Utils.getNoNil(tostring(doWashing),"not set"))
+
+    if Utils.getNoNil(self.customEnvironment,"unknown") == "FS22_WashBeforeFill" and doWashing then
+        --print("This is the special high pressure washer")
+        --print("doWashing -> " .. Utils.getNoNil(tostring(doWashing),"not set"))
+        --DebugUtil.printTableRecursively(g_currentMission.enterables,'enterables .. ',1,2)
+        local engineTurnedOn = false
+        if g_currentMission.enterables ~= nil then
+            for _, vehicle in pairs(g_currentMission.enterables) do
+                --DebugUtil.printTableRecursively(vehicle,'vehicle .. ',1,1)
+                --print("-------------------------------------------")
+                --print("engineOn before    -> " .. tostring(engineTurnedOn))
+                --print("motor started      -> " .. tostring(vehicle:getIsMotorStarted()))
+                --print("player node        -> " .. self.currentPlayerHandNode)
+                --print("distance to player -> " .. vehicle:getDistanceToNode(self.currentPlayerHandNode))
+                if vehicle:getIsMotorStarted() and vehicle:getDistanceToNode(self.currentPlayerHandNode) ~= math.huge then
+                    engineTurnedOn = true
+                end
+                --print("engineOn after     -> " .. tostring(engineTurnedOn))
+            end
+        end
+        if not engineTurnedOn then
+            --print("no active engine near player")
+            doWashing = false
+        end
+    end
+
+    return superFunc(self, doWashing, force, noEventSend)
+
+end

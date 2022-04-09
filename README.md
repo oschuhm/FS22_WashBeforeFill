@@ -39,5 +39,9 @@ Hier findet ihr die aktuell umgesetzten Funktionen. Weitere Funktionen sind in A
 - Der aktuelle FillType wird gespeichert
 - Wenn ihr einen anderen FillType laden wollt, dann muß das Gerät vorher gewaschen werden
 
+### Druckluftreiniger
+Im Shop gibt es in der Kategorie einen Druckluftreiniger.
+Diesen könnt ihr kaufen und analog wie eine Motorsäge aktivieren.
+Druckluftreiniger funktionieren nur in der Nähe eines eingeschalteten Fahrzeuges (Motor muß laufen)
 
 ## Credits

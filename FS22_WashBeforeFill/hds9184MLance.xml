@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<handTool xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../shared/xml/schema/handtool.xsd">
+    <storeData>
+        <name>HDS 9/18-4 M</name>
+        <functions>
+            <function>$l10n_function_highPressureWasher</function>
+        </functions>
+        <image>hds9184MLance.dds</image>
+        <price>500</price>
+        <lifetime>1000</lifetime>
+        <rotation>0</rotation>
+        <brand>KAERCHER</brand>
+        <canBeSold>true</canBeSold>
+        <showInStore>true</showInStore>
+        <category>misc</category>
+        <species>handTool</species>
+		<storeIconRendering>
+            <settings cameraXRot="-20" cameraYRot="40"/>
+        </storeIconRendering>
+    </storeData>
+
+    <handToolType>highPressureWasherLance</handToolType>
+    <filename>handtool/hds9184MLance.i3d</filename>
+
+    <handNode>
+        <firstPerson node="0|0|0" position="0.35 -0.25 -0.4" rotation="17 20 0" />
+        <thirdPerson node="0|0|0" position="-0.2 -0.03 0.0" rotation="0 180 270" />
+    </handNode>
+
+    <highPressureWasherLance>
+        <lance raycastNode="raycast" washDistance="10" washMultiplier="3" pricePerMinute="10" />
+        <effects>
+            <!--<effectNode effectNode="effectMesh" materialType="WASHER" />-->
+            <effectNode effectNode="dustEmitShape" effectClass="ParticleEffect" particleType="WASHER_WATER" emitCountScale="7000" />
+        </effects>
+        <sounds>
+            <washing template="PRESSURE_WASHER_WASHING_01" linkNode="0|0|0" />
+        </sounds>
+    </highPressureWasherLance>
+
+    <targets>
+        <target ikChain="leftArm" targetNode="leftHandRef" targetOffset="0.04 0.066 0">
+            <rotationNode id="1" rotation="90 -30 -20" />
+            <rotationNode id="2" rotation="0 0 -44" />
+            <rotationNode id="3" rotation="0 0 -10" />
+
+            <rotationNode id="4" rotation="0 0 -40" />
+            <rotationNode id="5" rotation="0 0 -80" />
+            <rotationNode id="6" rotation="0 0 0" />
+
+            <rotationNode id="7" rotation="0 0 -40" />
+            <rotationNode id="8" rotation="0 0 -80" />
+            <rotationNode id="9" rotation="0 0 0" />
+
+            <rotationNode id="10" rotation="0 0 -40" />
+            <rotationNode id="11" rotation="0 0 -80" />
+            <rotationNode id="12" rotation="0 0 0" />
+
+            <rotationNode id="13" rotation="0 0 -40" />
+            <rotationNode id="14" rotation="0 0 -80" />
+            <rotationNode id="15" rotation="0 0 0" />
+        </target>
+    </targets>
+
+    <i3dMappings>
+        <i3dMapping id="leftHandRef" node="0>0|0|0|0" />
+        <i3dMapping id="raycast" node="0>0|0|0|1" />
+        <!--<i3dMapping id="effectMesh" node="0>0|0|0|2|0" />-->
+        <i3dMapping id="dustEmitShape" node="0>0|0|0|2|0" />
+    </i3dMappings>
+</handTool>
