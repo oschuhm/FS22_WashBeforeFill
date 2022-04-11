@@ -42,7 +42,7 @@ Hier findet ihr die aktuell umgesetzten Funktionen. Weitere Funktionen sind in A
 ### Ladewagen
 - Der aktuelle FillType wird gespeichert
 - Wenn ihr einen anderen FillType laden wollt, dann muß das Gerät vorher gewaschen werden
-- TODO: Warnhinweis auf Reinigung wenn ein anderer FillType geladen wird oder alternativ wird nichts geladen
+- Der Ladewagen wird automatisch deaktiviert sollte er nicht sauber sein
 
 ### Druckluftreiniger
 Im Shop gibt es in der Kategorie Misc bzw. Sonstiges einen Druckluftreiniger.<br>

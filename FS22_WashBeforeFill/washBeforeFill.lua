@@ -8,6 +8,8 @@
 washBeforeFill = {}
 washBeforeFill.MOD_NAME = g_currentModName
 
+local minValue = 1
+
 function washBeforeFill.prerequisitesPresent(specializations)
   return true
 end
@@ -37,6 +39,10 @@ function washBeforeFill:onLoadFinished(savegame)
 
   if self.getCanDischargeToGround ~= nil then
     self.getCanDischargeToGround = Utils.overwrittenFunction(self.getCanDischargeToGround, washBeforeFill.getCanDischargeToGround)
+  end
+
+  if self.fillForageWagon ~= nil then
+    self.fillForageWagon = Utils.overwrittenFunction(self.fillForageWagon, washBeforeFill.fillForageWagon)
   end
 
   if self.spec_sprayer ~= nil and self.getCanBeTurnedOn ~= nil then
@@ -109,7 +115,7 @@ function washBeforeFill:addLittleBit()
         for _, fillUnitTable in pairs(self:getFillUnits()) do
             if fillUnitTable.fillLevel <= 0 then
                 print ("  we have to refill a little bit " .. g_fillTypeManager:getFillTypeNameByIndex(fillUnitTable.lastValidFillType))
-                self:addFillUnitFillLevel(self:getOwnerFarmId(), fillUnitTable.fillUnitIndex, 1, fillUnitTable.lastValidFillType, ToolType.UNDEFINED, nil)
+                self:addFillUnitFillLevel(self:getOwnerFarmId(), fillUnitTable.fillUnitIndex, minValue, fillUnitTable.lastValidFillType, ToolType.UNDEFINED, nil)
                 self:setFillUnitFillType(fillUnitTable.fillUnitIndex,fillUnitTable.lastValidFillType)
             else
                 print ("  there is still something in the vehicle, nothing to do")
@@ -143,7 +149,7 @@ function washBeforeFill.appendToWash(nodeData, dirtAmount, force)
 
                 if fillUnitTable.fillLevel > 0 and nodeData.isCoverOpen then
                     print ("  cleaning process active")
-                    nodeData:addFillUnitFillLevel(nodeData:getOwnerFarmId(), fillUnitTable.fillUnitIndex, -1, fillUnitTable.fillType, ToolType.UNDEFINED, nil)
+                    nodeData:addFillUnitFillLevel(nodeData:getOwnerFarmId(), fillUnitTable.fillUnitIndex, -minValue, fillUnitTable.fillType, ToolType.UNDEFINED, nil)
                 end
 
                 if fillUnitTable.fillLevel <= 0 then
@@ -166,37 +172,78 @@ end
 function washBeforeFill:onActivate(superFunc, allowInput)
 
     print("Overwrite HandTool:onActivate")
-
     return superFunc(self, allowInput)
+
+end
+
+function washBeforeFill:fillForageWagon(superFunc)
+
+    --print("Overwrite fillForageWagon")
+    return superFunc(self)
+
+end
+
+function washBeforeFill:processForageWagonArea(superFunc, workArea)
+
+    --print("Overwrite processForageWagonArea")
+
+    local spec = self.spec_forageWagon
+    local radius = 0.5
+    local supportedFillTypes = self:getFillUnitSupportedFillTypes(spec.fillUnitIndex)
+    local lsx, lsy, lsz, lex, ley, lez = DensityMapHeightUtil.getLineByArea(workArea.start, workArea.width, workArea.height)
+    local pickupFillType = DensityMapHeightUtil.getFillTypeAtLine(lsx, lsy, lsz, lex, ley, lez, radius)
+
+	if spec.workAreaParameters.forcedFillTypeOld ~= pickupFillType and pickupFillType > 1 and spec.workAreaParameters.forcedFillType > 1 then
+       print("------------------processForageWagonArea----------------------")
+       print("spec.workAreaParameters.forcedFillTypeOld  -> " .. Utils.getNoNil(spec.workAreaParameters.forcedFillTypeOld,"NIL"))
+       print("spec.workAreaParameters.forcedFillType     -> " .. spec.workAreaParameters.forcedFillType)
+       print("pickupFillType                             -> " .. pickupFillType)
+
+       self:setIsTurnedOn(false)
+	   self:setPickupState(false)
+
+       return 0, 0
+    end
+
+    local realArea, area = superFunc(self, workArea)
+
+    spec.workAreaParameters.forcedFillTypeOld = spec.workAreaParameters.forcedFillType
+
+    return realArea, area
+end
+
+function washBeforeFill:onStartWorkAreaProcessing(superFunc, dt)
+
+    --print("Overwrite ForageWagon:onStartWorkAreaProcessing")
+    superFunc(self, dt)
+
+    local spec = self.spec_forageWagon
+
+    if spec.workAreaParameters.forcedFillTypeOld ~= spec.workAreaParameters.forcedFillType then
+        print("-------------------onStartWorkAreaProcessing---------------------")
+        print("spec.workAreaParameters.forcedFillTypeOld  -> " .. Utils.getNoNil(spec.workAreaParameters.forcedFillTypeOld,"NIL"))
+        print("spec.workAreaParameters.forcedFillType     -> " .. spec.workAreaParameters.forcedFillType)
+        print("fillType                                   -> " .. self:getFillUnitFillType(spec.fillUnitIndex))
+    end
+
+    spec.workAreaParameters.forcedFillTypeOld = spec.workAreaParameters.forcedFillType
 
 end
 
 function washBeforeFill:setIsWashing(superFunc, doWashing, force, noEventSend)
 
-    --print("Overwrite HighPressureWasherLance.setIsWashing")
-    --print("doWashing -> " .. Utils.getNoNil(tostring(doWashing),"not set"))
-
     if Utils.getNoNil(self.customEnvironment,"unknown") == "FS22_WashBeforeFill" and doWashing then
-        --print("This is the special high pressure washer")
-        --print("doWashing -> " .. Utils.getNoNil(tostring(doWashing),"not set"))
         --DebugUtil.printTableRecursively(g_currentMission.enterables,'enterables .. ',1,2)
         local engineTurnedOn = false
         if g_currentMission.enterables ~= nil then
             for _, vehicle in pairs(g_currentMission.enterables) do
                 --DebugUtil.printTableRecursively(vehicle,'vehicle .. ',1,1)
-                --print("-------------------------------------------")
-                --print("engineOn before    -> " .. tostring(engineTurnedOn))
-                --print("motor started      -> " .. tostring(vehicle:getIsMotorStarted()))
-                --print("player node        -> " .. self.currentPlayerHandNode)
-                --print("distance to player -> " .. vehicle:getDistanceToNode(self.currentPlayerHandNode))
                 if vehicle:getIsMotorStarted() and vehicle:getDistanceToNode(self.currentPlayerHandNode) ~= math.huge then
                     engineTurnedOn = true
                 end
-                --print("engineOn after     -> " .. tostring(engineTurnedOn))
             end
         end
         if not engineTurnedOn then
-            --print("no active engine near player")
             doWashing = false
         end
     end

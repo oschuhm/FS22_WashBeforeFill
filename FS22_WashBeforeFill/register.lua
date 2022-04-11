@@ -22,3 +22,5 @@ end
 Player.equipHandtool = Utils.overwrittenFunction(Player.equipHandtool, washBeforeFill.equipHandtool)
 HandTool.onActivate = Utils.overwrittenFunction(HandTool.onActivate, washBeforeFill.onActivate)
 HighPressureWasherLance.setIsWashing = Utils.overwrittenFunction(HighPressureWasherLance.setIsWashing, washBeforeFill.setIsWashing)
+ForageWagon.onStartWorkAreaProcessing = Utils.overwrittenFunction(ForageWagon.onStartWorkAreaProcessing, washBeforeFill.onStartWorkAreaProcessing)
+ForageWagon.processForageWagonArea = Utils.overwrittenFunction(ForageWagon.processForageWagonArea, washBeforeFill.processForageWagonArea)
