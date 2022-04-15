@@ -108,7 +108,7 @@ function washBeforeFill:getCanDischargeToGround(superFunc,dischargeNode)
 end
 
 function washBeforeFill:addLittleBit()
-    print("addLittleBit")
+    --print("addLittleBit")
 
      if self:getFillUnits() ~= nil and self:getDirtAmount() > 0 then
 
@@ -168,6 +168,8 @@ function washBeforeFill.appendToWash(nodeData, dirtAmount, force)
                         if spec.buffer.dummyBale.available then
                             nodeData:deleteDummyBale(spec.buffer.dummyBale)
                         end
+                        spec.buffer.unloadingStarted = false
+                        spec.workAreaParameters.lastFillType = FillType.UNKNOWN
                     end
 
                     -- we have to clean the pickup in case we have a baler here
@@ -217,7 +219,7 @@ function washBeforeFill:processForageWagonArea(superFunc, workArea)
     local lsx, lsy, lsz, lex, ley, lez = DensityMapHeightUtil.getLineByArea(workArea.start, workArea.width, workArea.height)
     local pickupFillType = DensityMapHeightUtil.getFillTypeAtLine(lsx, lsy, lsz, lex, ley, lez, radius)
 
-	if spec.workAreaParameters.forcedFillTypeOld ~= pickupFillType and pickupFillType > 1 and spec.workAreaParameters.forcedFillType > 1 then
+	if spec.workAreaParameters.forcedFillTypeOld ~= pickupFillType and pickupFillType ~= 1 and spec.workAreaParameters.forcedFillType > 1 then
        --print("------------------processForageWagonArea----------------------")
        --print("spec.workAreaParameters.forcedFillTypeOld  -> " .. Utils.getNoNil(spec.workAreaParameters.forcedFillTypeOld,"NIL"))
        --print("spec.workAreaParameters.forcedFillType     -> " .. spec.workAreaParameters.forcedFillType)
@@ -225,6 +227,8 @@ function washBeforeFill:processForageWagonArea(superFunc, workArea)
 
        self:setIsTurnedOn(false)
 	   self:setPickupState(false)
+
+       g_currentMission:showBlinkingWarning(string.format(g_i18n:getText("warning_CleanBeforeFill","FS22_WashBeforeFill")), 5000)
 
        return 0, 0
     end
@@ -247,27 +251,27 @@ function washBeforeFill:processBalerArea(superFunc, workArea, dt)
     local fillTypeIndex = self:getFillUnitFillType(spec.fillUnitIndex)
     local fillLevel =  self:getFillUnitFillLevel(spec.fillUnitIndex)
 
-    if spec.workAreaParameters.lastFillType == nil or spec.workAreaParameters.lastFillType == 1 or fillLevel == 0 then
+    if spec.workAreaParameters.lastFillType == nil or spec.workAreaParameters.lastFillType == FillType.UNKNOWN then
         spec.workAreaParameters.lastFillType = fillTypeIndex
-        if spec.workAreaParameters.lastFillType == 1 and spec.buffer.dummyBale.available then
-            spec.workAreaParameters.lastFillType = self:getFillUnitFillType(spec.buffer.dummyBale.fillUnitIndex)
+        if spec.workAreaParameters.lastFillType == FillType.UNKNOWN and spec.buffer.dummyBale.available then
+            spec.workAreaParameters.lastFillType = self:getFillUnitFillType(spec.buffer.fillUnitIndex)
         end
     end
 
-	if spec.workAreaParameters.lastFillType ~= pickupFillType and pickupFillType > 1 and fillLevel > 0 then
-       --print("------------------processBalerArea----------------------")
-       --print("spec.workAreaParameters.lastFillType  -> " .. Utils.getNoNil(spec.workAreaParameters.lastFillType,"NIL"))
-       --print("pickupFillType                        -> " .. pickupFillType)
+	if spec.workAreaParameters.lastFillType ~= pickupFillType and pickupFillType ~= FillType.UNKNOWN and spec.workAreaParameters.lastFillType ~= FillType.UNKNOWN then
+      -- print("------------------processBalerArea----------------------")
+      -- print("spec.workAreaParameters.lastFillType  -> " .. Utils.getNoNil(spec.workAreaParameters.lastFillType,"NIL"))
+      -- print("pickupFillType                        -> " .. pickupFillType)
 
        self:setIsTurnedOn(false)
 	   self:setPickupState(false)
+
+       g_currentMission:showBlinkingWarning(string.format(g_i18n:getText("warning_CleanBeforeFill","FS22_WashBeforeFill")), 5000)
 
        return 0, 0
     end
 
     local value1, value2 = superFunc(self, workArea, dt)
-
-    spec.workAreaParameters.lastFillType = fillTypeIndex
 
     return value1, value2
 end

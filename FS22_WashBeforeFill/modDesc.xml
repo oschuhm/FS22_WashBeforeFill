@@ -94,4 +94,10 @@ Druckluftreiniger funktionieren nur in der Nähe eines eingeschalteten Fahrzeuge
   <storeItems>
     <storeItem xmlFilename="hds9184MLance.xml"/>
   </storeItems>
+  <l10n>
+    <text name="warning_CleanBeforeFill">
+	  <en>warning_CleanBeforeFill_EN</en>
+	  <de>warning_CleanBeforeFill_DE</de>
+    </text>
+  </l10n>
 </modDesc>
