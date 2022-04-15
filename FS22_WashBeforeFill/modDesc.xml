@@ -1,16 +1,90 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="64">
   <author>LS-Farmers</author>
-  <version>0.0.0.2</version>
+  <version>1.0.0.0</version>
   <title>
     <en>Wash Before Fill</en>
-    <de>Wash Before Fill</de>
+    <de>Wasch Mich</de>
   </title>
   <description>
     <en>
-    <![CDATA[ ]]></en>
-    <de>
-    <![CDATA[ ]]></de>
+<![CDATA[This mod adds 2 addtional features to the base game:
+1. Trailers and Tools must be cleaned before a FillType change.
+2. Adds an air pressure cleaner which you can use if you are close to a motorized vehicle.
+
+The following tools / machines are currently supported:
+
+-> Trailer
+- FillType is stored
+- If you want to use another FillType you have to clean it
+
+-> Shovel
+- FillType is stored
+- If you want to use another FillType you have to clean it
+
+-> Combine
+- FillType is stored
+- If you want to harvest a new kind of fruit you have to clean the combine first
+- You can use air pressure cleaner
+
+-> Sprayer
+- FillType is stored
+- If you want to use another FillType you have to clean it
+
+-> Forage Wagon
+- FillType is stored
+- If you want to use another FillType you have to clean it
+- Gets automatically deactivated in case it is not cleaned before loading a new FillType
+
+-> Baler
+- FillType is stored
+- If you want to use another FillType you have to clean it
+- Gets automatically deactivated in case it is not cleaned before loading a new FillType
+
+-> Air Pressure Cleaner
+You can buy an air pressure cleaner in the shop under Misc category.
+This can be used similar to a chain saw (activate with 1 or 2).
+Air Pressure Cleaner only works near a turned on motorized vehicle.
+]]></en>
+<de>
+<![CDATA[Dieser Mod bringt 2 grundlegende Funktionen mit:
+1. Anhänger und Geräte müssen vor einem FillType Wechsel gereinigt werden.
+2. Ein Druckluftreiniger den ihr an eure Fahrzeuge anschließen könnt.
+
+Folgende Geräte werden aktuell unterstützt:
+
+-> Anhänger / Trailer
+- Beim Abkippen wird der FillType gespeichert
+- Wenn ihr einen anderen FillType laden wollt, dann muß der Anhänger vorher gewaschen werden
+
+-> Schaufel
+- Beim Abkippen wird der FillType gespeichert
+- Wenn ihr einen anderen FillType laden wollt, dann muß die Schaufel vorher gewaschen werden
+
+-> Mähdrescher
+- Beim Überladen wird die Fruchtart gespeichert
+- Wenn ihr eine andere Fruchtart ernten wollt, dann müsst ihr den Mähdrescher vorher reinigen
+- Reinigung des Dreschers direkt auf dem Feld mit Druckluft -> siehe Druckluftreiniger
+
+-> Sprayer
+(Miststreuer, Düngerstreuer, Kalksteuer, etc.)
+- Der aktuelle FillType wird gespeichert
+- Wenn ihr einen anderen FillType laden wollt, dann muß das Gerät vorher gewaschen werden
+
+-> Ladewagen
+- Der aktuelle FillType wird gespeichert
+- Wenn ihr einen anderen FillType laden wollt, dann muß das Gerät vorher gewaschen werden
+- Der Ladewagen wird automatisch deaktiviert sollte er nicht sauber sein
+
+-> Ballenpressen
+- Der aktuelle FillType wird gespeichert
+- Wenn ihr einen anderen FillType laden wollt, dann muß das Gerät vorher gewaschen werden
+- Die Ballenpresse wird automatisch deaktiviert sollte sie nicht sauber sein
+
+-> Druckluftreiniger
+Im Shop gibt es in der Kategorie Misc bzw. Sonstiges einen Druckluftreiniger.<br>
+Diesen könnt ihr kaufen und analog wie eine Motorsäge aktivieren.<br>
+Druckluftreiniger funktionieren nur in der Nähe eines eingeschalteten Fahrzeuges (Motor muß laufen)]]></de>
   </description>
   <multiplayer supported="true"/>
   <iconFilename>modIcon.dds</iconFilename>
