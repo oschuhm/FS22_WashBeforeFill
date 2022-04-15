@@ -77,7 +77,7 @@ end
 function washBeforeFill:getCanBeTurnedOn(superFunc)
     local spec = self.spec_sprayer
     local myFillLevel = self:getFillUnitFillLevel(self:getSprayerFillUnitIndex())
-    if myFillLevel <= 1 and spec.needsToBeFilledToTurnOn and not self:getIsAIActive() then
+    if myFillLevel <= minValue and spec.needsToBeFilledToTurnOn and not self:getIsAIActive() then
       return false
     end
 
@@ -87,7 +87,7 @@ end
 
 function washBeforeFill:getCanDischargeToObject(superFunc,dischargeNode)
     local myFillLevel = self:getFillUnitFillLevel(dischargeNode.fillUnitIndex)
-    if myFillLevel <= 1 then
+    if myFillLevel <= minValue then
       self:setDischargeState(Dischargeable.DISCHARGE_STATE_OFF)
       return false
     end
@@ -98,7 +98,7 @@ end
 
 function washBeforeFill:getCanDischargeToGround(superFunc,dischargeNode)
     local myFillLevel = self:getFillUnitFillLevel(dischargeNode.fillUnitIndex)
-    if myFillLevel <= 1 then
+    if myFillLevel <= minValue then
       self:setDischargeState(Dischargeable.DISCHARGE_STATE_OFF)
       return false
     end
