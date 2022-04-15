@@ -19,8 +19,9 @@ for vehicleTypeName, vehicleType in pairs(g_vehicleTypeManager.types) do
 
 end
 
-Player.equipHandtool = Utils.overwrittenFunction(Player.equipHandtool, washBeforeFill.equipHandtool)
-HandTool.onActivate = Utils.overwrittenFunction(HandTool.onActivate, washBeforeFill.onActivate)
+--Player.equipHandtool = Utils.overwrittenFunction(Player.equipHandtool, washBeforeFill.equipHandtool)
+--HandTool.onActivate = Utils.overwrittenFunction(HandTool.onActivate, washBeforeFill.onActivate)
 HighPressureWasherLance.setIsWashing = Utils.overwrittenFunction(HighPressureWasherLance.setIsWashing, washBeforeFill.setIsWashing)
 ForageWagon.onStartWorkAreaProcessing = Utils.overwrittenFunction(ForageWagon.onStartWorkAreaProcessing, washBeforeFill.onStartWorkAreaProcessing)
 ForageWagon.processForageWagonArea = Utils.overwrittenFunction(ForageWagon.processForageWagonArea, washBeforeFill.processForageWagonArea)
+Baler.processBalerArea = Utils.overwrittenFunction(Baler.processBalerArea, washBeforeFill.processBalerArea)

@@ -17,7 +17,7 @@ end
 function washBeforeFill.registerEventListeners(vehicleType)
   SpecializationUtil.registerEventListener(vehicleType, "onLoadFinished", washBeforeFill)
   if SpecializationUtil.hasSpecialization(Sprayer, vehicleType.specializations) then
-    print("listen to Sprayer:onTurnOff Event")
+    --print("listen to Sprayer:onTurnOff Event")
     SpecializationUtil.registerEventListener(vehicleType, "onTurnedOff", washBeforeFill)
   end
 end
@@ -41,12 +41,12 @@ function washBeforeFill:onLoadFinished(savegame)
     self.getCanDischargeToGround = Utils.overwrittenFunction(self.getCanDischargeToGround, washBeforeFill.getCanDischargeToGround)
   end
 
-  if self.fillForageWagon ~= nil then
-    self.fillForageWagon = Utils.overwrittenFunction(self.fillForageWagon, washBeforeFill.fillForageWagon)
-  end
+--  if self.fillForageWagon ~= nil then
+--    self.fillForageWagon = Utils.overwrittenFunction(self.fillForageWagon, washBeforeFill.fillForageWagon)
+--  end
 
   if self.spec_sprayer ~= nil and self.getCanBeTurnedOn ~= nil then
-    print("overwrite function getCanBeTurnedOn")
+    --print("overwrite function getCanBeTurnedOn")
     self.getCanBeTurnedOn = Utils.overwrittenFunction(self.getCanBeTurnedOn, washBeforeFill.getCanBeTurnedOn)
   end
 
@@ -153,7 +153,31 @@ function washBeforeFill.appendToWash(nodeData, dirtAmount, force)
                 end
 
                 if fillUnitTable.fillLevel <= 0 then
-                    fillUnitTable.lastValidFillType = 1
+                    nodeData:setFillUnitLastValidFillType(fillUnitTable.fillUnitIndex, FillType.UNKNOWN, true)
+                    nodeData:setFillUnitFillType(fillUnitTable.fillUnitIndex, FillType.UNKNOWN)
+                    nodeData:setFillUnitFillTypeToDisplay(fillUnitTable.fillUnitIndex, FillType.UNKNOWN)
+                    nodeData:setFillUnitForcedMaterialFillType(fillUnitTable.fillUnitIndex, FillType.UNKNOWN)
+                    nodeData:setFillVolumeForcedFillTypeByFillUnitIndex(fillUnitTable.fillUnitIndex, FillType.UNKNOWN)
+
+
+                    -- in case we have a baler we also have to remove the dummy bale
+                    if nodeData.deleteDummyBale ~= nil then
+                        local spec = nodeData.spec_baler
+                        nodeData:deleteDummyBale(spec.dummyBale)
+                        spec.dummyBale.currentBaleFillType = FillType.UNKNOWN
+                        if spec.buffer.dummyBale.available then
+                            nodeData:deleteDummyBale(spec.buffer.dummyBale)
+                        end
+                    end
+
+                    -- we have to clean the pickup in case we have a baler here
+                    if nodeData.spec_baler ~= nil and nodeData.spec_baler.pickupFillTypes ~= nil then
+                        local pickupFillTypes = nodeData.spec_baler.pickupFillTypes
+                        for pickupFillTypeIdx, pickupFillTypeValue in pairs(pickupFillTypes) do
+                            pickupFillTypes[pickupFillTypeIdx] = 0
+                        end
+                    end
+
                 end
             end
         end
@@ -161,27 +185,27 @@ function washBeforeFill.appendToWash(nodeData, dirtAmount, force)
 
 end
 
-function washBeforeFill:equipHandtool(superFunc, handtoolFilename, force, noEventSend, equippedCallbackFunction, equippedCallbackTarget)
+--function washBeforeFill:equipHandtool(superFunc, handtoolFilename, force, noEventSend, equippedCallbackFunction, equippedCallbackTarget)
+--
+--    print("Overwrite equipHandTool")
+--
+--    return superFunc(self, handtoolFilename, force, noEventSend, equippedCallbackFunction, equippedCallbackTarget)
+--
+--end
 
-    print("Overwrite equipHandTool")
+--function washBeforeFill:onActivate(superFunc, allowInput)
+--
+--    print("Overwrite HandTool:onActivate")
+--    return superFunc(self, allowInput)
+--
+--end
 
-    return superFunc(self, handtoolFilename, force, noEventSend, equippedCallbackFunction, equippedCallbackTarget)
-
-end
-
-function washBeforeFill:onActivate(superFunc, allowInput)
-
-    print("Overwrite HandTool:onActivate")
-    return superFunc(self, allowInput)
-
-end
-
-function washBeforeFill:fillForageWagon(superFunc)
-
-    --print("Overwrite fillForageWagon")
-    return superFunc(self)
-
-end
+--function washBeforeFill:fillForageWagon(superFunc)
+--
+--    --print("Overwrite fillForageWagon")
+--    return superFunc(self)
+--
+--end
 
 function washBeforeFill:processForageWagonArea(superFunc, workArea)
 
@@ -194,10 +218,10 @@ function washBeforeFill:processForageWagonArea(superFunc, workArea)
     local pickupFillType = DensityMapHeightUtil.getFillTypeAtLine(lsx, lsy, lsz, lex, ley, lez, radius)
 
 	if spec.workAreaParameters.forcedFillTypeOld ~= pickupFillType and pickupFillType > 1 and spec.workAreaParameters.forcedFillType > 1 then
-       print("------------------processForageWagonArea----------------------")
-       print("spec.workAreaParameters.forcedFillTypeOld  -> " .. Utils.getNoNil(spec.workAreaParameters.forcedFillTypeOld,"NIL"))
-       print("spec.workAreaParameters.forcedFillType     -> " .. spec.workAreaParameters.forcedFillType)
-       print("pickupFillType                             -> " .. pickupFillType)
+       --print("------------------processForageWagonArea----------------------")
+       --print("spec.workAreaParameters.forcedFillTypeOld  -> " .. Utils.getNoNil(spec.workAreaParameters.forcedFillTypeOld,"NIL"))
+       --print("spec.workAreaParameters.forcedFillType     -> " .. spec.workAreaParameters.forcedFillType)
+       --print("pickupFillType                             -> " .. pickupFillType)
 
        self:setIsTurnedOn(false)
 	   self:setPickupState(false)
@@ -212,6 +236,43 @@ function washBeforeFill:processForageWagonArea(superFunc, workArea)
     return realArea, area
 end
 
+function washBeforeFill:processBalerArea(superFunc, workArea, dt)
+
+    --print("Overwrite processBalerArea")
+
+    local spec = self.spec_baler
+    local radius = 0.5
+    local lsx, lsy, lsz, lex, ley, lez = DensityMapHeightUtil.getLineByArea(workArea.start, workArea.width, workArea.height)
+    local pickupFillType = DensityMapHeightUtil.getFillTypeAtLine(lsx, lsy, lsz, lex, ley, lez, radius)
+    local fillTypeIndex = self:getFillUnitFillType(spec.fillUnitIndex)
+    local fillLevel =  self:getFillUnitFillLevel(spec.fillUnitIndex)
+
+    if spec.workAreaParameters.lastFillType == nil or spec.workAreaParameters.lastFillType == 1 or fillLevel == 0 then
+        spec.workAreaParameters.lastFillType = fillTypeIndex
+        if spec.workAreaParameters.lastFillType == 1 and spec.buffer.dummyBale.available then
+            spec.workAreaParameters.lastFillType = self:getFillUnitFillType(spec.buffer.dummyBale.fillUnitIndex)
+        end
+    end
+
+	if spec.workAreaParameters.lastFillType ~= pickupFillType and pickupFillType > 1 and fillLevel > 0 then
+       --print("------------------processBalerArea----------------------")
+       --print("spec.workAreaParameters.lastFillType  -> " .. Utils.getNoNil(spec.workAreaParameters.lastFillType,"NIL"))
+       --print("pickupFillType                        -> " .. pickupFillType)
+
+       self:setIsTurnedOn(false)
+	   self:setPickupState(false)
+
+       return 0, 0
+    end
+
+    local value1, value2 = superFunc(self, workArea, dt)
+
+    spec.workAreaParameters.lastFillType = fillTypeIndex
+
+    return value1, value2
+end
+
+
 function washBeforeFill:onStartWorkAreaProcessing(superFunc, dt)
 
     --print("Overwrite ForageWagon:onStartWorkAreaProcessing")
@@ -219,12 +280,12 @@ function washBeforeFill:onStartWorkAreaProcessing(superFunc, dt)
 
     local spec = self.spec_forageWagon
 
-    if spec.workAreaParameters.forcedFillTypeOld ~= spec.workAreaParameters.forcedFillType then
-        print("-------------------onStartWorkAreaProcessing---------------------")
-        print("spec.workAreaParameters.forcedFillTypeOld  -> " .. Utils.getNoNil(spec.workAreaParameters.forcedFillTypeOld,"NIL"))
-        print("spec.workAreaParameters.forcedFillType     -> " .. spec.workAreaParameters.forcedFillType)
-        print("fillType                                   -> " .. self:getFillUnitFillType(spec.fillUnitIndex))
-    end
+    --if spec.workAreaParameters.forcedFillTypeOld ~= spec.workAreaParameters.forcedFillType then
+        --print("-------------------onStartWorkAreaProcessing---------------------")
+        --print("spec.workAreaParameters.forcedFillTypeOld  -> " .. Utils.getNoNil(spec.workAreaParameters.forcedFillTypeOld,"NIL"))
+        --print("spec.workAreaParameters.forcedFillType     -> " .. spec.workAreaParameters.forcedFillType)
+        --print("fillType                                   -> " .. self:getFillUnitFillType(spec.fillUnitIndex))
+    --end
 
     spec.workAreaParameters.forcedFillTypeOld = spec.workAreaParameters.forcedFillType
 

@@ -44,6 +44,12 @@ Hier findet ihr die aktuell umgesetzten Funktionen. Weitere Funktionen sind in A
 - Wenn ihr einen anderen FillType laden wollt, dann muß das Gerät vorher gewaschen werden
 - Der Ladewagen wird automatisch deaktiviert sollte er nicht sauber sein
 
+### Ballenpressen
+- Der aktuelle FillType wird gespeichert
+- Wenn ihr einen anderen FillType laden wollt, dann muß das Gerät vorher gewaschen werden
+- Die Ballenpresse wird automatisch deaktiviert sollte sie nicht sauber sein
+
+
 ### Druckluftreiniger
 Im Shop gibt es in der Kategorie Misc bzw. Sonstiges einen Druckluftreiniger.<br>
 Diesen könnt ihr kaufen und analog wie eine Motorsäge aktivieren.<br>
