@@ -59,7 +59,7 @@ function washBeforeFill:onLoadFinished(savegame)
 end
 
 function washBeforeFill:handleDischargeOnEmpty(myObject)
-    print("append handleDischargeOnEmpty")
+    --print("append handleDischargeOnEmpty")
     self:setDischargeState(Dischargeable.DISCHARGE_STATE_OFF)
     self:addLittleBit()
 end
@@ -113,12 +113,10 @@ function washBeforeFill:addLittleBit()
      if self:getFillUnits() ~= nil and self:getDirtAmount() > 0 then
 
         for _, fillUnitTable in pairs(self:getFillUnits()) do
-            if fillUnitTable.fillLevel <= 0 then
+            if fillUnitTable.fillLevel <= 0 and fillUnitTable.lastValidFillType ~= FillType.UNKNOWN then
                 print ("  we have to refill a little bit " .. g_fillTypeManager:getFillTypeNameByIndex(fillUnitTable.lastValidFillType))
                 self:addFillUnitFillLevel(self:getOwnerFarmId(), fillUnitTable.fillUnitIndex, minValue, fillUnitTable.lastValidFillType, ToolType.UNDEFINED, nil)
                 self:setFillUnitFillType(fillUnitTable.fillUnitIndex,fillUnitTable.lastValidFillType)
-            else
-                print ("  there is still something in the vehicle, nothing to do")
             end
         end
      end
