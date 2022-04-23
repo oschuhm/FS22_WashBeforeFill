@@ -151,11 +151,11 @@ function washBeforeFill.appendToWash(nodeData, dirtAmount, force)
                 end
 
                 if fillUnitTable.fillLevel <= 0 then
-                    nodeData:setFillUnitLastValidFillType(fillUnitTable.fillUnitIndex, FillType.UNKNOWN, true)
-                    nodeData:setFillUnitFillType(fillUnitTable.fillUnitIndex, FillType.UNKNOWN)
-                    nodeData:setFillUnitFillTypeToDisplay(fillUnitTable.fillUnitIndex, FillType.UNKNOWN)
-                    nodeData:setFillUnitForcedMaterialFillType(fillUnitTable.fillUnitIndex, FillType.UNKNOWN)
-                    nodeData:setFillVolumeForcedFillTypeByFillUnitIndex(fillUnitTable.fillUnitIndex, FillType.UNKNOWN)
+                   -- nodeData:setFillUnitLastValidFillType(fillUnitTable.fillUnitIndex, FillType.UNKNOWN, true)
+                   -- nodeData:setFillUnitFillType(fillUnitTable.fillUnitIndex, FillType.UNKNOWN)
+                   -- nodeData:setFillUnitFillTypeToDisplay(fillUnitTable.fillUnitIndex, FillType.UNKNOWN)
+                   -- nodeData:setFillUnitForcedMaterialFillType(fillUnitTable.fillUnitIndex, FillType.UNKNOWN)
+                   -- nodeData:setFillVolumeForcedFillTypeByFillUnitIndex(fillUnitTable.fillUnitIndex, FillType.UNKNOWN)
 
 
                     -- in case we have a baler we also have to remove the dummy bale
