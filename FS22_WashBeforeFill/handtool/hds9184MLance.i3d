@@ -17,7 +17,7 @@
 
 
   <Materials>
-    <Material name="kaercherHDS918_4M_mat" materialId="5" diffuseColor="0.498039 0.498039 0.498039 1" customShaderId="4" customShaderVariation="colorMask">
+    <Material name="kaercherHDS918_4M_mat" materialId="4" diffuseColor="0.494118 0.494118 0.494118 1" customShaderId="4" customShaderVariation="colorMask">
       <Normalmap fileId="2"/>
       <Glossmap fileId="3"/>
       <CustomParameter name="RDT" value="0 0 0 0"/>
@@ -31,7 +31,7 @@
       <CustomParameter name="colorMat6" value="1 0.1 1 1"/>
       <CustomParameter name="colorMat7" value="0.1 1 1 1"/>
     </Material>
-    <Material name="kaercherHDS918_4MDecals1_mat" materialId="8" alphaBlending="true" customShaderId="4" customShaderVariation="Decal">
+    <Material name="kaercherHDS918_4MDecals1_mat" materialId="5" alphaBlending="true" customShaderId="4" customShaderVariation="Decal">
       <Texture fileId="11"/>
       <Normalmap fileId="9"/>
       <Glossmap fileId="3"/>
@@ -45,7 +45,7 @@
       <CustomParameter name="RDT" value="0 0 0 0"/>
       <CustomParameter name="dirtColor" value="0.2 0.14 0.08 0"/>
     </Material>
-    <Material name="lambert1" materialId="4" diffuseColor="0.498039 0.498039 0.498039 1">
+    <Material name="lambert1" materialId="7" diffuseColor="0.494118 0.494118 0.494118 1">
     </Material>
   </Materials>
 
@@ -58,17 +58,17 @@
   </Dynamics>
 
   <Scene>
-      <TransformGroup name="root" nodeId="15">
-        <TransformGroup name="lancePosition" nodeId="16">
-          <TransformGroup name="lanceRot" nodeId="17">
-            <Shape shapeId="1" name="lanceHP" translation="-1.42109e-16 5.68434e-16 2.55795e-15" clipDistance="50" nodeId="18" materialIds="5" receiveShadows="true">
-              <TransformGroup name="leftHandRef" translation="-0.0121896 0.0403156 -0.269474" nodeId="19"/>
-              <TransformGroup name="raycast" translation="0.00444704 -0.059729 -1.05107" nodeId="20"/>
-              <TransformGroup name="effects" translation="1.42109e-16 -1.13687e-15 -3.41061e-15" nodeId="21">
-                <Shape shapeId="2" name="dustEmitShape" clipDistance="300" nodeId="23" materialIds="4" castsShadows="true" receiveShadows="true" nonRenderable="true"/>
+      <TransformGroup name="root" nodeId="13">
+        <TransformGroup name="lancePosition" nodeId="14">
+          <TransformGroup name="lanceRot" nodeId="15">
+            <Shape shapeId="1" name="lanceHP" translation="-1.42109e-16 5.68434e-16 2.55795e-15" clipDistance="50" nodeId="16" materialIds="4" receiveShadows="true">
+              <TransformGroup name="leftHandRef" translation="-0.0121896 0.0403156 -0.269474" nodeId="17"/>
+              <TransformGroup name="raycast" translation="0.00444704 -0.059729 -1.05107" nodeId="18"/>
+              <TransformGroup name="effects" translation="1.42109e-16 -1.13687e-15 -3.41061e-15" nodeId="19">
+                <Shape shapeId="2" name="dustEmitShape" clipDistance="300" nodeId="20" materialIds="7" castsShadows="true" receiveShadows="true" nonRenderable="true"/>
               </TransformGroup>
-              <Shape shapeId="3" name="decalsLanceHP" translation="-0.00178426 0.137405 -0.05753" clipDistance="20" nodeId="24" materialIds="6" receiveShadows="true" decalLayer="1"/>
-              <Shape shapeId="4" name="decalAdditional" translation="-0.000593958 0.0709466 -0.123487" clipDistance="30" nodeId="25" materialIds="8" receiveShadows="true" decalLayer="1"/>
+              <Shape shapeId="3" name="decalsLanceHP" translation="-0.00178426 0.137405 -0.05753" clipDistance="20" nodeId="21" materialIds="6" receiveShadows="true" decalLayer="1"/>
+              <Shape shapeId="4" name="decalAdditional" translation="-0.000593958 0.0709466 -0.123487" clipDistance="30" nodeId="22" materialIds="5" receiveShadows="true" decalLayer="1"/>
             </Shape>
           </TransformGroup>
         </TransformGroup>
