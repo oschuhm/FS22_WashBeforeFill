@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="64">
-  <author>LS-Farmers</author>
+<modDesc descVersion="65">
+  <author>LS-Farmers, HoT San</author>
   <version>1.0.0.0</version>
   <title>
     <en>Wash Before Fill</en>
@@ -92,7 +92,7 @@ Druckluftreiniger funktionieren nur in der Nähe eines eingeschalteten Fahrzeuge
     <sourceFile filename="register.lua"/>
   </extraSourceFiles>
   <storeItems>
-    <storeItem xmlFilename="hds9184MLance.xml"/>
+	<storeItem xmlFilename="airSprayerR.xml"/>
   </storeItems>
   <l10n>
     <text name="warning_CleanBeforeFill">

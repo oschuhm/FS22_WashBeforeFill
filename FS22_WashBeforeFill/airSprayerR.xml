@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <handTool xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../shared/xml/schema/handtool.xsd">
     <storeData>
-        <name>HDS 9/18-4 M</name>
+        <name>AirSprayerHD</name>
         <functions>
             <function>$l10n_function_highPressureWasher</function>
         </functions>
-        <image>hds9184MLance.dds</image>
-        <price>500</price>
+        <image>airSprayerR.dds</image>
+        <price>100</price>
         <lifetime>1000</lifetime>
         <rotation>0</rotation>
-        <brand>KAERCHER</brand>
+        <brand>LIZARD</brand>
         <canBeSold>true</canBeSold>
         <showInStore>true</showInStore>
         <category>misc</category>
@@ -20,7 +20,7 @@
     </storeData>
 
     <handToolType>highPressureWasherLance</handToolType>
-    <filename>handtool/hds9184MLance.i3d</filename>
+    <filename>handtool/airSprayerR.i3d</filename>
 
     <handNode>
         <firstPerson node="0|0|0" position="0.35 -0.25 -0.4" rotation="17 20 0" />
