@@ -6,7 +6,7 @@
 --
 
 if g_specializationManager:getSpecializationByName('washBeforeFill') == nil then
-    g_specializationManager.addSpecialization('washBeforeFill', 'washBeforeFill', 'washBeforeFill', Utils.getFilename('washBeforeFill.lua', g_currentModDirectory))
+    g_specializationManager:addSpecialization('washBeforeFill', 'washBeforeFill', Utils.getFilename('washBeforeFill.lua', g_currentModDirectory),nil)
 end
 
 for vehicleTypeName, vehicleType in pairs(g_vehicleTypeManager.types) do
