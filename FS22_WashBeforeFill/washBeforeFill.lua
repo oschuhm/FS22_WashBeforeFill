@@ -8,7 +8,7 @@
 washBeforeFill = {}
 washBeforeFill.MOD_NAME = g_currentModName
 
-local minValue = 1
+local minValue = 0.01
 
 function washBeforeFill.prerequisitesPresent(specializations)
   return true
@@ -147,7 +147,7 @@ function washBeforeFill.appendToWash(nodeData, dirtAmount, force)
 
                 if fillUnitTable.fillLevel > 0 and nodeData.isCoverOpen then
                     print ("  cleaning process active")
-                    nodeData:addFillUnitFillLevel(nodeData:getOwnerFarmId(), fillUnitTable.fillUnitIndex, -minValue, fillUnitTable.fillType, ToolType.UNDEFINED, nil)
+                    nodeData:addFillUnitFillLevel(nodeData:getOwnerFarmId(), fillUnitTable.fillUnitIndex, -minValue * 100, fillUnitTable.fillType, ToolType.UNDEFINED, nil)
                 end
 
                 if fillUnitTable.fillLevel <= 0 then
@@ -213,7 +213,7 @@ function washBeforeFill:processForageWagonArea(superFunc, workArea)
 
     local spec = self.spec_forageWagon
     local radius = 0.5
-    local supportedFillTypes = self:getFillUnitSupportedFillTypes(spec.fillUnitIndex)
+    --local supportedFillTypes = self:getFillUnitSupportedFillTypes(spec.fillUnitIndex)
     local lsx, lsy, lsz, lex, ley, lez = DensityMapHeightUtil.getLineByArea(workArea.start, workArea.width, workArea.height)
     local pickupFillType = DensityMapHeightUtil.getFillTypeAtLine(lsx, lsy, lsz, lex, ley, lez, radius)
 
@@ -247,7 +247,7 @@ function washBeforeFill:processBalerArea(superFunc, workArea, dt)
     local lsx, lsy, lsz, lex, ley, lez = DensityMapHeightUtil.getLineByArea(workArea.start, workArea.width, workArea.height)
     local pickupFillType = DensityMapHeightUtil.getFillTypeAtLine(lsx, lsy, lsz, lex, ley, lez, radius)
     local fillTypeIndex = self:getFillUnitFillType(spec.fillUnitIndex)
-    local fillLevel =  self:getFillUnitFillLevel(spec.fillUnitIndex)
+    --local fillLevel =  self:getFillUnitFillLevel(spec.fillUnitIndex)
 
     if spec.workAreaParameters.lastFillType == nil or spec.workAreaParameters.lastFillType == FillType.UNKNOWN then
         spec.workAreaParameters.lastFillType = fillTypeIndex
