@@ -179,6 +179,9 @@ function washBeforeFill.appendToWash(nodeData, dirtAmount, force)
                         end
                     end
 
+                    -- last but not least send an event to get the MP clients in sync
+                    SpecializationUtil.raiseEvent(nodeData, "onChangedFillType", fillUnitTable.fillUnitIndex, FillType.UNKNOWN, fillUnitTable.fillType)
+
                 end
             end
         end
