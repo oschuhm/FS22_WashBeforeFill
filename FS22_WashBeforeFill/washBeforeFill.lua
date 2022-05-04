@@ -147,8 +147,9 @@ function washBeforeFill.appendToWash(nodeData, dirtAmount, force)
 
                 --if fillUnitTable.fillLevel > 0 and nodeData.isCoverOpen then
                 if nodeData.isCoverOpen then
-                    print ("  reduce fillLevel; currentFillType-> ".. fillUnitTable.fillType .. " | pending fillLevel -> " .. fillUnitTable.fillLevel)
-                    nodeData:addFillUnitFillLevel(nodeData:getOwnerFarmId(), fillUnitTable.fillUnitIndex, -minValue * 100, fillUnitTable.fillType, ToolType.UNDEFINED, nil)
+                    local removeValue = math.min(minValue * 100, fillUnitTable.fillLevel)
+                    print ("  reduce fillLevel by -> ".. removeValue .." | currentFillType-> ".. fillUnitTable.fillType .. " | pending fillLevel -> " .. fillUnitTable.fillLevel)
+                    nodeData:addFillUnitFillLevel(nodeData:getOwnerFarmId(), fillUnitTable.fillUnitIndex, -removeValue, fillUnitTable.fillType, ToolType.UNDEFINED, nil)
                 end
 
                 if fillUnitTable.fillLevel <= 0 then
@@ -178,9 +179,6 @@ function washBeforeFill.appendToWash(nodeData, dirtAmount, force)
                             pickupFillTypes[pickupFillTypeIdx] = 0
                         end
                     end
-
-                    -- last but not least send an event to get the MP clients in sync
-                    SpecializationUtil.raiseEvent(nodeData, "onChangedFillType", fillUnitTable.fillUnitIndex, FillType.UNKNOWN, fillUnitTable.fillType)
 
                 end
             end
