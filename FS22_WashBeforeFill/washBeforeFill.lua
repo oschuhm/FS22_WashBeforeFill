@@ -145,8 +145,9 @@ function washBeforeFill.appendToWash(nodeData, dirtAmount, force)
                     end
                 end
 
-                if fillUnitTable.fillLevel > 0 and nodeData.isCoverOpen then
-                    print ("  cleaning process active")
+                --if fillUnitTable.fillLevel > 0 and nodeData.isCoverOpen then
+                if nodeData.isCoverOpen then
+                    print ("  reduce fillLevel; currentFillType-> ".. fillUnitTable.fillType .. " | pending fillLevel -> " .. fillUnitTable.fillLevel)
                     nodeData:addFillUnitFillLevel(nodeData:getOwnerFarmId(), fillUnitTable.fillUnitIndex, -minValue * 100, fillUnitTable.fillType, ToolType.UNDEFINED, nil)
                 end
 

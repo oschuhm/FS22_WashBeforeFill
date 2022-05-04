@@ -96,8 +96,8 @@ Druckluftreiniger funktionieren nur in der Nähe eines eingeschalteten Fahrzeuge
   </storeItems>
   <l10n>
     <text name="warning_CleanBeforeFill">
-	  <en>warning_CleanBeforeFill_EN</en>
-	  <de>warning_CleanBeforeFill_DE</de>
+	  <en>Please clean before refill</en>
+	  <de>Bitte Gerät erst waschen</de>
     </text>
   </l10n>
 </modDesc>
